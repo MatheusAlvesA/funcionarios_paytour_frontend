@@ -1,17 +1,39 @@
 import React from 'react';
+import { listarFuncionarios } from '../api';
+import FichaFuncionario from './FichaFuncionario';
+import LoadingComponent from '../LoadingComponent';
 
 class ListarFuncionarios extends React.Component {
 
-	state = {};
+	state = {
+		loading: true,
+		lista: []
+	};
 
 	componentDidMount() {
-		// TODO
+		this.listar();
+	}
+
+	listar = async () => {
+		let r = await listarFuncionarios();
+		this.setState({loading: false});
+		if(Array.isArray(r)) {
+			this.setState({lista: r});
+		}
 	}
 
 	render() {
-		return <div className="container-flex ml-1 mr-1"><div className="row mr-0">
+		if(this.state.loading) {
+			return <div className="d-flex flex-column justify-content-around"><div className="row mr-0">
+				<LoadingComponent />
+			</div></div>;
+		}
+
+		return <div className="container-flex"><div className="row mr-0">
 			<div className="col-12">
-				Listando funcionários
+				{
+					this.state.lista.map(funcionario => <FichaFuncionario key={funcionario.id} dados={funcionario}/>)
+				}
 			</div>
 		</div></div>;
 	}

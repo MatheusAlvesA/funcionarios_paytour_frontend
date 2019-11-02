@@ -81,10 +81,12 @@ class App extends React.Component {
 			}
 			>Sair <i className="fas fa-sign-out-alt"></i></h6>
           </div>
+		  <div className="container pl-5 pt-5 bg-light">
 			<Switch>
 				<Route path="/listar" exact={true} component={ListarFuncionarios} />
 				<Route path="/cadastrar" component={CadastrarFuncionario} />
 			</Switch>
+		  </div>
         </main>
 		</div></div>;
 	}
