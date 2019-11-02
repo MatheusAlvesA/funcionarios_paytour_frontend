@@ -22,7 +22,7 @@ export default class LoadingComponent extends React.Component {
 	}
 
 	render() {
-		return <h2><i className="fas fa-mug-hot"></i> Carregando{this.getPontos()}</h2>;
+		return <h2 style={{padding: '20px'}}><i className="fas fa-mug-hot"></i> Carregando{this.getPontos()}</h2>;
 	}
 
 	getPontos = () => {

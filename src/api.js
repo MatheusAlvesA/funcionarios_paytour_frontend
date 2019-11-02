@@ -97,12 +97,62 @@ export function estaLogado() {
 }
 
 export function logout() {
+	const tk = getCookie('token');
+
+	const config = {
+		method: 'GET',
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "Bearer "+tk
+		},
+		mode: 'cors',
+		redirect: 'follow'
+	};
+
+	try { fetch(endpoint+'/logout', config); }
+	catch {/* EMPTY */}
+
 	deleteCookie('token');
 	deleteCookie('expiration');
 	return true;
 }
 
 function getToken() {
-	//TODO checar se o token ainda está válido
+	const expiration = Number(getCookie('expiration'));
+	if(isNaN(expiration) || expiration === 0 || expiration < (new Date()).getTime()-120000)
+		renovarToken();
+	
 	return getCookie('token');
+}
+
+async function renovarToken() {
+	const tk = getCookie('token');
+
+	const config = {
+		method: 'GET',
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "Bearer "+tk
+		},
+		mode: 'cors',
+		redirect: 'follow'
+	};
+
+	try {
+		const r = await fetch(endpoint+'/refresh', config);
+		if(r.ok) {
+			const corpo = await r.json();
+			if(corpo.erro)
+				return false;
+
+			setCookie('token', corpo.access_token, 1);
+			const agora = (new Date()).getTime();
+			setCookie('expiration', (agora+(corpo.expires_in*1000)).toString(), 1);
+			return true;
+		}
+
+		return false;
+	} catch {
+		return false;
+	}
 }
