@@ -1,4 +1,4 @@
-import { setCookie, deleteCookie } from "./cookiesUtils";
+import { setCookie, getCookie, deleteCookie } from "./cookiesUtils";
 
 export const endpoint = 'http://localhost/api';
 
@@ -26,7 +26,8 @@ export async function login(email, senha) {
 				return false;
 
 			setCookie('token', corpo.access_token, 1);
-			setCookie('expiration', corpo.expires_in.toString(), 1);
+			const agora = (new Date()).getTime();
+			setCookie('expiration', (agora+(corpo.expires_in*1000)).toString(), 1);
 			return true;
 		}
 
@@ -34,6 +35,13 @@ export async function login(email, senha) {
 	} catch {
 		return false;
 	}
+}
+
+export function estaLogado() {
+	const expiration = Number(getCookie('expiration'));
+	if(isNaN(expiration) || expiration === 0 || expiration < (new Date()).getTime())
+		return false;
+	return true;
 }
 
 export function logout() {

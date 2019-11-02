@@ -1,5 +1,4 @@
 import React from 'react';
-import { login } from './api';
 
 class App extends React.Component {
 
