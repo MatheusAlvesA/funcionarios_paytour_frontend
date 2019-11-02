@@ -46,5 +46,6 @@ export function estaLogado() {
 
 export function logout() {
 	deleteCookie('token');
+	deleteCookie('expiration');
 	return true;
 }

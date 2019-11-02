@@ -16,6 +16,7 @@ class Login extends React.Component {
 
 	logar = async e => {
 		e.preventDefault();
+		this.setState({loading: true});
 		const { email, senha } = this.state;
 		const r = await login(email, senha);
 		if(r) 
