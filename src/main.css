@@ -1,0 +1,7 @@
+.borda-houver {
+	border-bottom: 1px solid lightgray;
+}
+
+.borda-houver:hover {
+	border-bottom: 1px solid black;
+}
