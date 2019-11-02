@@ -54,6 +54,32 @@ export async function deletarFuncionario(id) {
 	}
 }
 
+export async function cadastrarFuncionario(payload) {
+	const config = {
+		method: 'POST',
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "Bearer "+getToken()
+		},
+		mode: 'cors',
+		redirect: 'follow',
+		body: JSON.stringify(payload)
+	};
+
+	try {
+		const r = await fetch(endpoint+'/funcionario', config);
+		const corpo = await r.json();
+		if(r.ok) {
+			if(corpo.erro)
+				return corpo;
+			return true;
+		}
+		return corpo;
+	} catch {
+		return false;
+	}
+}
+
 export async function login(email, senha) {
 	const payload = {
 		email,
@@ -119,7 +145,7 @@ export function logout() {
 
 function getToken() {
 	const expiration = Number(getCookie('expiration'));
-	if(isNaN(expiration) || expiration === 0 || expiration < (new Date()).getTime()-120000)
+	if(isNaN(expiration) || expiration === 0 || expiration < (new Date()).getTime()-600000)
 		renovarToken();
 	
 	return getCookie('token');
