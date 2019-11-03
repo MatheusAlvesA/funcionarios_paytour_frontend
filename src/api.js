@@ -1,6 +1,6 @@
 import { setCookie, getCookie, deleteCookie } from "./cookiesUtils";
 
-export const rootUrl = 'http://localhost';
+export const rootUrl = 'http://api.paytour.matheusalves.com.br';
 export const endpoint = rootUrl+'/api';
 
 export async function listarFuncionarios() {
