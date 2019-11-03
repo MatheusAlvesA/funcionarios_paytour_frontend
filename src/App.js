@@ -7,10 +7,16 @@ import CadastrarFuncionario from './CadastrarFuncionario';
 import AtualizarFuncionario from './AtualizarFuncionario';
 
 class App extends React.Component {
+
+	state = {
+		toggleSidebar: false
+	};
+
 	render() {
-		return <div className="container-flex ml-1 mr-1"><div className="row mr-0">
+		return <div className="container-flex ml-1 mr-1"><div className="wrapper">
 		<nav
-			className="col-md-2 d-none d-md-block bg-light sidebar"
+			id="sidebar"
+			className={"bg-light"+(this.state.toggleSidebar ? ' active': '')}
 			style={{height: '100vh'}}
 		>
 
@@ -63,10 +69,17 @@ class App extends React.Component {
 			</ul>
 		</nav>
 			
-		<main role="main" className="col-md-10">
+		<main id="content" role="main">
           <div
 		  		className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom"
 		 >
+			<button
+				type="button"
+				className="btn btn-info"
+				onClick={() => this.setState({toggleSidebar: !this.state.toggleSidebar})}
+			>
+                <i className="fas fa-align-left"></i>
+            </button>
             <h2>Dashboard</h2>
             <h6
 				style={{cursor: 'pointer'}}
@@ -77,7 +90,7 @@ class App extends React.Component {
 			}
 			>Sair <i className="fas fa-sign-out-alt"></i></h6>
           </div>
-		  <div className="container pl-5 pt-5 bg-light">
+		  <div className="container pt-4 bg-light">
 			<Switch>
 				<Route path="/listar" exact={true} component={ListarFuncionarios} />
 				<Route path="/cadastrar" component={CadastrarFuncionario} />

@@ -281,7 +281,7 @@ class AtualizarFuncionario extends React.Component {
 					className="btn btn-success"
 					onClick={this.atualizar}
 					disabled={this.state.loading}
-				>Atualizar</button>
+				>{this.state.loading ? 'Aguarde...' : 'Atualizar'}</button>
 			</div>
 			</div>
 		</div></div>;

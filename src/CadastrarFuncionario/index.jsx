@@ -243,7 +243,7 @@ class CadastrarFuncionario extends React.Component {
 					className="btn btn-success"
 					onClick={this.cadastrar}
 					disabled={this.state.loading}
-				>Cadastrar</button>
+				>{this.state.loading ? 'Aguarde...' : 'Cadastrar'}</button>
 			</div>
 			</div>
 		</div></div>;
