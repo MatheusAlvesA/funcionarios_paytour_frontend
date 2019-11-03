@@ -65,6 +65,7 @@ class Login extends React.Component {
 					placeholder="Senha"
 					value={this.state.senha}
 					onChange={e => this.setState({senha: e.target.value})}
+					onKeyPress={e => (e.key === 'Enter') ? this.logar(e) : null}
 					required
 			/>
 			<br />

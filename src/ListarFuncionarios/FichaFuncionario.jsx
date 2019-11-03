@@ -2,6 +2,7 @@ import React from 'react';
 import Swal from 'sweetalert2'
 import { rootUrl, deletarFuncionario } from '../api';
 import { formatarCPF, formatarTelefone } from '../utils';
+import { Link } from 'react-router-dom';
 
 class FichaFuncionario extends React.Component {
 
@@ -63,6 +64,11 @@ class FichaFuncionario extends React.Component {
 			>
 				<i className="fas fa-trash"></i>
 			</button>
+			<Link to={"/editar/"+id}>
+				<button className="btn btn-info ml-1">
+					<i className="fas fa-edit"></i>
+				</button>
+			</Link>
 		  </div>
 		</div>;
 	}

@@ -4,15 +4,9 @@ import './main.css';
 import { logout } from './api.js';
 import ListarFuncionarios from './ListarFuncionarios';
 import CadastrarFuncionario from './CadastrarFuncionario';
+import AtualizarFuncionario from './AtualizarFuncionario';
 
 class App extends React.Component {
-
-	state = {};
-
-	componentDidMount() {
-		// TODO
-	}
-
 	render() {
 		return <div className="container-flex ml-1 mr-1"><div className="row mr-0">
 		<nav
@@ -70,8 +64,10 @@ class App extends React.Component {
 		</nav>
 			
 		<main role="main" className="col-md-10">
-          <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 className="h2">Dashboard</h1>
+          <div
+		  		className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-2 mb-3 border-bottom"
+		 >
+            <h2>Dashboard</h2>
             <h6
 				style={{cursor: 'pointer'}}
 				onClick={() => {
@@ -85,11 +81,20 @@ class App extends React.Component {
 			<Switch>
 				<Route path="/listar" exact={true} component={ListarFuncionarios} />
 				<Route path="/cadastrar" component={CadastrarFuncionario} />
+				<Route path="/editar/*" component={AtualizarFuncionario} />
+				<Route exact={true} path="/*" component={home} />
 			</Switch>
 		  </div>
         </main>
 		</div></div>;
 	}
+}
+
+function home() {
+	return <div className="d-flex flex-column align-items-center">
+				<h2>Bem vindo ao sistema de gerenciamento de funcioários</h2>
+				<h3>Escolha uma das opções no menu ao lado</h3>
+			</div>;
 }
 
 export default App;

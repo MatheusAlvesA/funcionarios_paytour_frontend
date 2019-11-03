@@ -29,6 +29,32 @@ export async function listarFuncionarios() {
 	}
 }
 
+export async function getFuncionario(id) {
+	const config = {
+		method: 'GET',
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "Bearer "+getToken()
+		},
+		mode: 'cors',
+		redirect: 'follow'
+	};
+
+	try {
+		const r = await fetch(endpoint+'/funcionario/'+id, config);
+		if(r.ok) {
+			const corpo = await r.json();
+			if(corpo.erro)
+				return false;
+			return corpo;
+		}
+
+		return false;
+	} catch {
+		return false;
+	}
+}
+
 export async function deletarFuncionario(id) {
 	const config = {
 		method: 'DELETE',
@@ -68,6 +94,32 @@ export async function cadastrarFuncionario(payload) {
 
 	try {
 		const r = await fetch(endpoint+'/funcionario', config);
+		const corpo = await r.json();
+		if(r.ok) {
+			if(corpo.erro)
+				return corpo;
+			return true;
+		}
+		return corpo;
+	} catch {
+		return false;
+	}
+}
+
+export async function atualizarFuncionario(id, payload) {
+	const config = {
+		method: 'PUT',
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "Bearer "+getToken()
+		},
+		mode: 'cors',
+		redirect: 'follow',
+		body: JSON.stringify(payload)
+	};
+
+	try {
+		const r = await fetch(endpoint+'/funcionario/'+id, config);
 		const corpo = await r.json();
 		if(r.ok) {
 			if(corpo.erro)
@@ -145,7 +197,7 @@ export function logout() {
 
 function getToken() {
 	const expiration = Number(getCookie('expiration'));
-	if(isNaN(expiration) || expiration === 0 || expiration < (new Date()).getTime()-600000)
+	if(isNaN(expiration) || expiration === 0 || expiration < (new Date()).getTime()+600000)
 		renovarToken();
 	
 	return getCookie('token');
