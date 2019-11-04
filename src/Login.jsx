@@ -82,7 +82,7 @@ class Login extends React.Component {
 				className="btn btn-lg btn-primary btn-block" type="submit"
 				disabled={this.state.loading}
 				onClick={this.logar}
-			>Entrar</button>
+			>{this.state.loading ? 'Aguarde...' : 'Entrar'}</button>
 			<p className="mt-5 mb-3 text-muted">&copy; 2019</p>
 		</form>
 	  </div></div>);

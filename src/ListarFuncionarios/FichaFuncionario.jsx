@@ -50,7 +50,7 @@ class FichaFuncionario extends React.Component {
 						className="mr-auto ml-auto"
 						src={rootUrl+"/imagens/"+foto}
 						alt="Foto do(a) funcionário(a)"
-						width="100"
+						width="80"
 					/>
 				</div>
 				<div className="col-5 col-md-7">
